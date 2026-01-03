@@ -1,198 +1,173 @@
-'use client';
+"use client";
 
-import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport } from 'ai';
-import { useState, useEffect, useRef } from 'react';
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
+import { useState, useEffect, useRef } from "react";
 
 export default function LandingPage() {
   const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ api: '/api/chat' }),
+    transport: new DefaultChatTransport({ api: "/api/chat" }),
   });
 
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const assistantSectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, status]);
 
   const scrollToAssistant = () => {
-    assistantSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    assistantSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-teal-50 text-neutral-900">
-      {/* HERO */}
-      <section className="max-w-6xl mx-auto px-6 pt-20 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Copy */}
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-rose-50 text-slate-900">
+      <header className="sticky top-0 z-20 backdrop-blur bg-white/60 border-b border-white/40">
+        <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold">AI</div>
+            <div>
+              <div className="text-lg font-semibold">NextIn AI</div>
+              <div className="text-xs text-slate-500">Smart assistant for every team</div>
+            </div>
+          </div>
+          <nav className="hidden md:flex gap-4 items-center">
+            <button onClick={scrollToAssistant} className="px-3 py-2 rounded-full bg-indigo-600 text-white text-sm hover:bg-indigo-500">Open chat</button>
+            <a href="#" className="text-sm text-slate-600 hover:text-slate-800">Docs</a>
+          </nav>
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-5 py-10">
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div>
-            <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
-              Your AI assistant, working 24/7 for your business
-            </h1>
-            <p className="mt-5 text-neutral-600 max-w-xl">
-              NextIn AI helps answer customer questions, respond instantly, and
-              capture opportunities — day and night, without any technical
-              setup.
-            </p>
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-sky-700 to-indigo-600">A modern AI assistant your customers will love</h1>
+            <p className="mt-4 text-lg text-slate-600 max-w-xl">Fast, helpful, and always available — integrate in minutes and start answering customer questions instantly.</p>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={scrollToAssistant}
-                className="rounded-full bg-sky-600 px-7 py-3 text-white font-medium hover:bg-sky-500"
-              >
-                Meet your assistant
-              </button>
-              <button className="rounded-full border border-neutral-300 px-7 py-3 text-neutral-700 hover:bg-teal-50">
-                See how it works
-              </button>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button onClick={scrollToAssistant} className="rounded-full bg-sky-600 text-white px-5 py-3 shadow hover:bg-sky-500">Try the demo</button>
+              <button className="rounded-full border border-slate-200 px-5 py-3 text-slate-700 hover:bg-slate-50">How it works</button>
             </div>
 
-            <p className="mt-4 text-xs text-neutral-500">
-              No credit card required • Setup in minutes
-            </p>
+            <div className="mt-6 text-sm text-slate-500">No credit card required • Private by default</div>
           </div>
 
-          {/* Assistant preview */}
-          <div className="md:block">
-            <div className="rounded-3xl bg-white/70 backdrop-blur shadow-lg border border-white/40">
-              <div className="px-5 py-3 text-xs text-neutral-500 border-b border-neutral-200/50">
-                ● ● ● Live assistant
+          <div>
+            <div className="rounded-2xl shadow-2xl overflow-hidden border bg-white">
+              <div className="px-4 py-3 bg-gradient-to-r from-indigo-600 to-rose-500 text-white flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">🤖</div>
+                  <div className="text-sm font-semibold">Assistant preview</div>
+                </div>
+                <div className="text-xs opacity-90">Live</div>
               </div>
-              <div className="p-5 space-y-4 text-sm">
-                <div className="max-w-[85%] rounded-2xl bg-teal-50 px-4 py-3 text-teal-900">
-                  Hi 👋 I’m your AI assistant. I’m here to help your customers 24/7.
-                </div>
-                <div className="max-w-[85%] rounded-2xl bg-blue-50 px-4 py-3 ml-auto text-blue-900">
-                  Are you open on weekends?
-                </div>
-                <div className="max-w-[85%] rounded-2xl bg-teal-50 px-4 py-3 text-teal-900">
-                  Yes — we’re open Saturdays from 9 AM to 5 PM. Would you like to book a visit or ask about availability?
-                </div>
+
+              <div className="p-4 space-y-3 text-sm">
+                <div className="max-w-[85%] rounded-2xl bg-indigo-50 px-4 py-3 text-indigo-900">Hi 👋 I’m your AI assistant. Try asking about hours, pricing, or availability.</div>
+                <div className="max-w-[75%] ml-auto rounded-2xl bg-rose-50 px-4 py-3 text-rose-900">Are you open on weekends?</div>
+                <div className="max-w-[85%] rounded-2xl bg-indigo-50 px-4 py-3 text-indigo-900">Yes — Saturdays 9 AM–5 PM. Would you like to book a slot?</div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ASSISTANT INTERFACE */}
-      <section ref={assistantSectionRef} className="px-4 pb-16">
-        <div className="max-w-3xl mx-auto">
-          <div className="rounded-3xl bg-white/80 backdrop-blur shadow-xl border border-white/50">
-            <div className="px-6 py-3 text-xs text-neutral-500 border-b border-neutral-200/50">
-              ● ● ● Live assistant
-            </div>
-
-            <div className="flex flex-col h-[480px]">
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                {messages.length === 0 && (
-                  <div className="space-y-3 text-sm">
-                    <div className="text-xs text-neutral-400">Example conversation</div>
-
-                    <div className="max-w-[80%] rounded-2xl bg-teal-50 px-4 py-3 text-teal-900">
-                      Hi 👋 I’m your AI assistant. I’m here to help your customers 24/7.
-                    </div>
-                    <div className="max-w-[80%] rounded-2xl bg-blue-50 px-4 py-3 ml-auto text-blue-900">
-                      What time do you open today?
-                    </div>
-                    <div className="max-w-[80%] rounded-2xl bg-teal-50 px-4 py-3 text-teal-900">
-                      We’re open from 9 AM to 7 PM today. I can also help you book a time or answer questions.
-                    </div>
-                    <div className="max-w-[80%] rounded-2xl bg-blue-50 px-4 py-3 ml-auto text-blue-900">
-                      Is your premium plan available?
-                    </div>
-                    <div className="max-w-[80%] rounded-2xl bg-teal-50 px-4 py-3 text-teal-900">
-                      Yes, it’s available now. Would you like pricing details or should I connect you with the team?
-                    </div>
+        {/* Chat area */}
+        <section ref={assistantSectionRef} className="mt-10">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex flex-col bg-white rounded-3xl shadow-2xl overflow-hidden border">
+              <div className="px-6 py-4 flex items-center justify-between bg-gradient-to-r from-sky-50 to-indigo-50">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 text-white flex items-center justify-center">AI</div>
+                  <div>
+                    <div className="text-sm font-semibold">Live assistant</div>
+                    <div className="text-xs text-slate-500">Responds instantly</div>
                   </div>
-                )}
-
-                {messages.map(message => (
-                  <div
-                    key={message.id}
-                    className={message.role === 'user' ? 'flex justify-end' : 'flex justify-start'}
-                  >
-                    <div
-                      className={
-                        message.role === 'user'
-                          ? 'max-w-[80%] rounded-2xl bg-sky-600 text-white px-4 py-3 text-sm'
-                          : 'max-w-[80%] rounded-2xl bg-teal-50 px-4 py-3 text-sm'
-                      }
-                    >
-                      {message.parts.map((part, i) =>
-                        part.type === 'text' ? <span key={i}>{part.text}</span> : null
-                      )}
-                    </div>
-                  </div>
-                ))}
-
-                {status === 'streaming' && (
-                  <div className="flex justify-start">
-                    <div className="max-w-[80%] rounded-2xl bg-teal-50 px-4 py-3 text-sm text-neutral-600 italic">
-                      Your AI assistant is responding…
-                    </div>
-                  </div>
-                )}
-
-                <div ref={bottomRef} />
+                </div>
+                <div className="text-xs text-slate-500">Status: <span className="font-medium">{status}</span></div>
               </div>
 
-              <form
-                onSubmit={e => {
-                  e.preventDefault();
-                  if (!input.trim() || status !== 'ready') return;
-                  sendMessage({ text: input });
-                  setInput('');
-                }}
-                className="border-t border-neutral-200/60 p-4"
-              >
-                <div className="flex gap-3">
-                  <input
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    placeholder="Ask a customer-style question…"
-                    disabled={status !== 'ready'}
-                    className="flex-1 rounded-full border border-neutral-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
-                  />
-                  <button
-                    type="submit"
-                    disabled={status !== 'ready'}
-                    className="rounded-full bg-sky-600 px-5 text-sm font-medium text-white hover:bg-sky-500 disabled:opacity-50"
-                  >
-                    Send
-                  </button>
+              <div className="flex flex-col md:h-[520px] h-[60vh]">
+                <div className="flex-1 overflow-y-auto p-5 space-y-4 scrollbar-thin scrollbar-thumb-slate-300">
+                  {messages.length === 0 && (
+                    <div className="space-y-3 text-sm text-slate-600">
+                      <div className="text-xs text-slate-400">Example conversation</div>
+                      <div className="max-w-[80%] rounded-2xl bg-indigo-50 px-4 py-3 text-indigo-900">Hi 👋 I’m your AI assistant. I’m here to help your customers 24/7.</div>
+                      <div className="max-w-[80%] ml-auto rounded-2xl bg-rose-50 px-4 py-3 text-rose-900">What time do you open today?</div>
+                      <div className="max-w-[80%] rounded-2xl bg-indigo-50 px-4 py-3 text-indigo-900">We’re open 9 AM–7 PM today. I can help book or answer questions.</div>
+                    </div>
+                  )}
+
+                  {messages.map((message) => (
+                    <div key={message.id} className={message.role === "user" ? "flex justify-end" : "flex justify-start"}>
+                      <div className={
+                        (message.role === "user"
+                          ? "bg-sky-600 text-white self-end"
+                          : "bg-indigo-50 text-indigo-900 self-start") +
+                        " max-w-[85%] rounded-2xl px-4 py-3 text-sm"
+                      }>
+                        {message.parts.map((part: any, i: number) => part.type === "text" ? <span key={i}>{part.text}</span> : null)}
+                      </div>
+                    </div>
+                  ))}
+
+                  {status === "streaming" && (
+                    <div className="flex justify-start">
+                      <div className="max-w-[75%] rounded-2xl bg-indigo-50 px-4 py-3 text-sm italic text-slate-600">Your AI assistant is responding…</div>
+                    </div>
+                  )}
+
+                  <div ref={bottomRef} />
                 </div>
-              </form>
+
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!input.trim() || status !== "ready") return;
+                    sendMessage({ text: input });
+                    setInput("");
+                  }}
+                  className="p-4 border-t bg-gradient-to-t from-white to-slate-50"
+                >
+                  <div className="flex gap-3 items-center">
+                    <input
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      placeholder="Ask a question or type something..."
+                      disabled={status !== "ready"}
+                      className="flex-1 rounded-full border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    />
+                    <button type="submit" disabled={status !== "ready"} className="rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50">
+                      Send
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+
+            <p className="mt-4 text-center text-sm text-slate-500">Works 24/7 • Private by default • Integrates in minutes</p>
           </div>
+        </section>
 
-          <p className="mt-5 text-center text-xs text-neutral-500">
-            Works 24/7 for your business • Responds instantly • Handles real customer questions
-          </p>
-        </div>
-      </section>
+        <section className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-xl bg-white shadow"> 
+            <div className="text-xl font-semibold text-indigo-700">Fast</div>
+            <div className="mt-2 text-sm text-slate-600">Responds instantly to customer queries.</div>
+          </div>
+          <div className="p-6 rounded-xl bg-white shadow"> 
+            <div className="text-xl font-semibold text-indigo-700">Private</div>
+            <div className="mt-2 text-sm text-slate-600">Your data stays with you — private by default.</div>
+          </div>
+          <div className="p-6 rounded-xl bg-white shadow"> 
+            <div className="text-xl font-semibold text-indigo-700">Easy</div>
+            <div className="mt-2 text-sm text-slate-600">Integrate quickly with minimal setup.</div>
+          </div>
+        </section>
+      </main>
 
-      {/* ABOUT */}
-      <section className="px-6 pb-12 max-w-3xl mx-auto text-center text-sm text-neutral-600">
-        <p>
-          NextIn AI is a smart, always-on AI assistant built for everyday
-          businesses. It works around the clock to respond to customers, stay
-          available, and turn conversations into opportunities — without
-          technical skills.
-        </p>
-      </section>
-
-      {/* TRUST */}
-      <section className="px-6 pb-16 max-w-3xl mx-auto text-center text-xs text-neutral-500">
-        <p>Always working for you • Private by default • Your data stays yours</p>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="border-t border-neutral-200 py-6 text-center text-xs text-neutral-500">
-        <div className="font-medium text-neutral-700">NextIn AI</div>
+      <footer className="mt-12 py-8 text-center text-sm text-slate-500">
+        <div className="font-medium">NextIn AI</div>
         <div>Smart AI for everybody</div>
-        <div className="mt-1">contact@nextin.ai</div>
       </footer>
     </div>
   );
